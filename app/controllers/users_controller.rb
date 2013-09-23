@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   end
   
   def create
-    puts params
     @user = User.new(params[:user])
     render "new"
     @user.save
