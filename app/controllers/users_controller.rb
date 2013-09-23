@@ -4,9 +4,10 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(:username => params[:username],
-      :password => params[:password])
+    puts params
+    @user = User.new(params[:user])
     render "new"
+    @user.save
   end
   
 end
