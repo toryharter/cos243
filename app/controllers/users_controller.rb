@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
   
   def create
-    permittedparams = params.require(:user).permit(:usersname,:password,:password_confirmation,:email)
+    permittedparams = params.require(:user).permit(:username,:password,:password_confirmation,:email)
     @user = User.new(permittedparams)
     
     if @user.save then
