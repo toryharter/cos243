@@ -3,6 +3,10 @@ class UsersController < ApplicationController
     @user = User.new
   end
   
+  def show
+    @user = User.find(params[:id])
+  end
+  
   def create
     permittedparams = params.require(:user).permit(:username,:password,:password_confirmation,:email)
     @user = User.new(permittedparams)
@@ -12,7 +16,5 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
-    
   end
-  
 end
