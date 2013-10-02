@@ -1,1 +1,1 @@
-<p> <%= user.username %> : <%= user.email %> : <%= user.id %></p>
+<li> <%= link_to user.username,user%> | <%= link_to "Delete Account", user, method: :delete, data: {confirm: "Are you sure you want to delete #{ user.username }? (I heard he's pretty sweet)"} %> </li>

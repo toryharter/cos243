@@ -9,7 +9,6 @@ class UsersController < ApplicationController
   end
   
   def create
-    permittedparams = params.require(:user).permit(:username,:password,:password_confirmation,:email)
     @user = User.new(permittedparams)
     
     if @user.save then
@@ -28,11 +27,8 @@ class UsersController < ApplicationController
   end
     
   def update
-    #permittedparams = params.require(:user).permit(:username,:password,:password_confirmation,:email)
     @user = User.find(params[:id])
-    @user.update_attributes(username: params[:user][:username], email: params[:user][:email])
-    
-    if @user.save
+    if @user.update_attributes(permittedparams)
       flash[:success] = "Profile updated"
       redirect_to @user
     else
@@ -40,5 +36,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to users_path      
+  end
     
+    
+  private
+    def permittedparams
+      permittedparams = params.require(:user).permit(:username,:password,:password_confirmation,:email)
+    end    
 end
