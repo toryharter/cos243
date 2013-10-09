@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GameContestServer</title>
+  <title>Game Server</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  
+  <ul class="nav nav-pills">
+    <li><a href="#">Game Contest Server</a></li>
+    <li class="active"><a href="/users">Home</a></li>
+    <li><a href="#">Edit</a></li>
+    <li><a href="/users/new">New</a></li>
+  </ul>
 
-<%= yield %>
+  <% flash.each do |level, message| %>
+    <div class="alert alert-<%= level %>"%><%= message %></div>
+  <% end %>
+  
+  <div class="container">
+    <%= yield %>
+  </div>
 
 </body>
 </html>
