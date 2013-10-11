@@ -7,19 +7,19 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  
-  <ul class="nav nav-pills">
-    <li><a href="#">Game Contest Server</a></li>
-    <li class="active"><a href="/users">Home</a></li>
-    <li><a href="#">Edit</a></li>
-    <li><a href="/users/new">New</a></li>
-  </ul>
 
   <% flash.each do |level, message| %>
     <div class="alert alert-<%= level %>"%><%= message %></div>
   <% end %>
   
   <div class="container">
+    <nav class="navbar navbar-default" role="navigation">
+      <ul class="nav nav-pills">
+        <li><%= link_to "Game Contest Server", root_path %></li>
+        <li class="<%= 'active' if params[:action] == 'index' %>"><%= link_to "Users", users_path %></li>
+        <li class="<%= 'active' if params[:action] == 'new' %>"><%= link_to "Sign Up", signup_path %></li>
+      </ul>
+    </nav>
     <%= yield %>
   </div>
 

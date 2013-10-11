@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @user = User.new(permittedparams)
     
     if @user.save then
-      flash[:success] = "Profile updated"
+      flash[:success] = "Welcome " + @user.username
       redirect_to @user
     else
       render 'new'
