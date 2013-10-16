@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     @user = User.new(permittedparams)
     
     if @user.save then
+      login(@user)
       flash[:success] = "Welcome " + @user.username
       redirect_to @user
     else

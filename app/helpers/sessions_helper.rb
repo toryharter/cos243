@@ -7,7 +7,8 @@ module SessionsHelper
     current_user == user
   end
   
-  def login
+  def login(user)
+    cookies[:user_id] = user.id
   end
   
   def logged_in?
