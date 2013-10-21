@@ -2,67 +2,75 @@ class UsersController < ApplicationController
   before_action :ensure_user_logged_in, only: [:edit, :update]
   before_action :ensure_correct_user, only: [:edit, :update]
   before_action :ensure_admin_user, only: [:destroy]
-  def index
-    @users = User.all
-  end
+  before_action :ensure_not_logged_in, only: [:new, :create]
   
   def new
     @user = User.new
   end
   
   def create
-    @user = User.new(permittedparams)
-    
+    @user = User.new(user_params)
     if @user.save then
-      login(@user)
-      flash[:success] = "Welcome " + @user.username
-      redirect_to @user
+      log_in(@user)
+      flash[:success] = "Welcome to the site: #{@user.username}"
+      redirect_to @user     
     else
       render 'new'
     end
   end
-  
-  def show
-    @user = User.find(params[:id])
-  end
-
-  def edit 
-    @user = User.find(params[:id])
+    
+  def edit
   end
     
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(permittedparams)
-      flash[:success] = "Profile updated"
+    if @user.update_attributes(user_params)
+      flash[:success] = "Acccount #{@user.username} updated successfully!"
       redirect_to @user
     else
       render 'edit'
     end
   end
-
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-    redirect_to users_path      
+    
+  def index
+    @users = User.all
   end
     
+  def show
+    @user = User.find(params[:id])
+  end
+    
+  def destroy
+    @user = User.find(params[:id])
+    if !current_user?(@user)
+      @user.destroy
+      flash[:success] = "User destroyed."
+      redirect_to users_path
+    else
+      flash[:danger] = "Can't delete yourself."
+      redirect_to root_path
+    end 
+  end 
     
   private
-    def permittedparams
-      permittedparams = params.require(:user).permit(:username,:password,:password_confirmation,:email)
-    end  
-    
+    def ensure_admin_user
+      redirect_to users_path unless current_user.admin?
+    end 
+   
     def ensure_user_logged_in
-      redirect_to login_path unless logged_in?
+      redirect_to login_path, flash: { :warning => "Unable" } unless logged_in? 
     end
     
     def ensure_correct_user
       @user = User.find(params[:id])
-      redirect_to root_path unless current_user?(@user)
+      redirect_to root_path, flash: { :danger => "Must be Logged in!" } unless current_user?(@user)
     end
     
-    def ensure_admin_user
-      redirect_to users_path unless current_user.admin?
-    end
+    def ensure_not_logged_in
+      redirect_to root_path, flash: { :warning => "You are logged in and cannot perform that action!" } unless !logged_in?
+    end 
     
+    def user_params
+      params.require(:user).permit(:username, :email, :password, :password_confirmation)
+    end
 end

@@ -1,12 +1,16 @@
 <h1>Login</h1>
 
 <%= form_tag sessions_path do %>
-  <%= label_tag :username %>
-  <%= text_field_tag :username, params[:username] %>
+  <div class="form-group">
+    <%= label_tag :username, "Username" %>
+    <%= text_field_tag :username, params[:username], class: 'form-control'%>
+  </div>
 
-  <%= label_tag :password %>
-  <%= password_field_tag :password, params[:password] %>
-
-  <%= submit_tag "Log in", class: 'btn btn-primary' %>
-
+  <div class="form-group">
+    <%= label_tag :password, "Password" %>
+    <%= password_field_tag :password, params[:password], class: 'form-control' %>
+  </div>
+  <%= submit_tag "Log In", class: 'btn btn-primary' %>
+<p> New to the site? <%= link_to "Sign Up", signup_path %> </p>
+  
 <% end %>
