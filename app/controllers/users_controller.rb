@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     
     def ensure_correct_user
       @user = User.find(params[:id])
-      redirect_to root_path, flash: { :danger => "Must be Logged in!" } unless current_user?(@user)
+      redirect_to root_path, flash: { :danger => "Can't edit someone elses page!" } unless current_user?(@user)
     end
     
     def ensure_not_logged_in
