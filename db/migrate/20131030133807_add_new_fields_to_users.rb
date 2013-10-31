@@ -1,4 +1,4 @@
-class AddNewFieldsToUser < ActiveRecord::Migration
+class AddNewFieldsToUsers < ActiveRecord::Migration
   def change
     add_column :users, :contest_creator, :boolean
     add_column :users, :banned, :boolean

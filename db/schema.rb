@@ -53,7 +53,8 @@ ActiveRecord::Schema.define(version: 20131030135023) do
     t.string   "file_location"
     t.text     "description"
     t.string   "name"
-    t.boolean  "downloadable"
+    t.boolean  "downloadable",  default: false
+    t.boolean  "playable",      default: true
     t.integer  "user_id"
     t.integer  "contest_id"
     t.datetime "created_at"

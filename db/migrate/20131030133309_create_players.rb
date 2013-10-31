@@ -4,7 +4,8 @@ class CreatePlayers < ActiveRecord::Migration
       t.string :file_location
       t.text :description
       t.string :name
-      t.boolean :downloadable
+      t.boolean :downloadable, default: false
+      t.boolean :playable, default: true
       t.references :user, index: true
       t.references :contest, index: true
 
