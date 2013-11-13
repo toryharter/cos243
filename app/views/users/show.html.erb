@@ -1,3 +1,19 @@
 <h1> User Info </h1>
 
 <li> Username: <%= @user.username %> : Email: <%= @user.email %> : ID: <%= @user.id %></li>
+
+<% if @user.contest_creator? %>
+  <h2>Referees</h2>
+  <%= @user.referees.length %> referees
+  <ul>
+    <%= render partial: "user_referees", collection: @user.referees, as: :referee%>
+  </ul>
+  <p><%= link_to "New Referee", new_referee_path %></p>
+<% end %>
+<h2>Players</h2>
+<%= @user.players.length %> players
+
+<ul>
+  <%= render partial: "user_players", collection: @user.players, as: :player%>
+</ul>
+<p><%= link_to "New Player", new_player_path %></p>

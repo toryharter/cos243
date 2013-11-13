@@ -14,11 +14,40 @@ class RefereesController < ApplicationController
        flash[:danger] = "Referee failed to create"
        render "new"
      end
-   end 
+   end
   
-    def show
-      @referee = Referee.find(params[:id])
+  def edit
+    @referee = Referee.find(params[:id])
+  end
+  
+  def update
+    @referee = Referee.find(params[:id])
+    if @referee.update_attributes(acceptable_params)
+      flash[:success] = "Referee updated"
+      redirect_to @referee
+    else
+      render 'edit'
     end
+  end
+  
+  def index
+    @referees = Referee.all
+  end
+  
+  def show
+    @referee = Referee.find(params[:id])
+  end
+  
+  def destroy
+    @referee = Referee.find(params[:id])
+    if @referee.destroy
+      flash[:success] = "Referee destroyed."
+      redirect_to referees_path
+    else
+      flash[:danger] = "Referee was not deleted"
+      redirect_to root_path
+    end 
+  end
    
    private
      def acceptable_params
