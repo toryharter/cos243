@@ -11,11 +11,10 @@ class Referee < ActiveRecord::Base
   
   def upload=(uploaded_file)
     if uploaded_file.nil?
-      #problem no file
+      #No file
     else
       time_no_spaces = Time.now.to_s.gsub(/\s/, '_')
       file_location = Rails.root.join('code', 'referees', Rails.env, time_no_spaces).to_s
-      #puts("Saving to #{file_location}")
       IO::copy_stream(uploaded_file, file_location)
     end
     self.file_location = file_location

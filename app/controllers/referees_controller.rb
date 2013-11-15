@@ -1,13 +1,13 @@
 class RefereesController < ApplicationController
-   #before_action :ensure_user_logged_in
+  before_action :ensure_user_logged_in, only: [:new, :create, :edit, :update]
    
    def new
-     @referee = current_user.referees.build
+       @referee = current_user.referees.build
    end 
    
    def create
      @referee = current_user.referees.build(acceptable_params)
-     if @referee.save
+     if @referee.save then
        flash[:success] = "Referee created"
        redirect_to @referee
      else
@@ -22,7 +22,7 @@ class RefereesController < ApplicationController
   
   def update
     @referee = Referee.find(params[:id])
-    if @referee.update_attributes(acceptable_params)
+    if @referee.update_attributes(acceptable_params) then
       flash[:success] = "Referee updated"
       redirect_to @referee
     else
@@ -40,7 +40,7 @@ class RefereesController < ApplicationController
   
   def destroy
     @referee = Referee.find(params[:id])
-    if @referee.destroy
+    if @referee.destroy then
       flash[:success] = "Referee destroyed."
       redirect_to referees_path
     else
