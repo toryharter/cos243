@@ -74,6 +74,78 @@ describe "AuthorizationPages" do
 	  let (:http_path) { referees_path }
 	end
       end
+
+      describe "edit action" do
+	it_behaves_like "redirects to a login" do
+	  let (:referee) { FactoryGirl.create(:referee) }
+	  let (:path) { edit_referee_path(referee) }
+	  let (:method) { :patch }
+	  let (:http_path) { referee_path(referee) }
+	end
+      end
+
+      describe "delete action" do
+	it_behaves_like "redirects to a login", skip_browser: true do
+	  let (:referee) { FactoryGirl.create(:referee) }
+	  let (:method) { :delete }
+	  let (:http_path) { referee_path(referee) }
+	end
+      end
+    end
+
+    describe "for Contests controller" do
+      describe "new action" do
+	it_behaves_like "redirects to a login" do
+	  let (:path) { new_contest_path }
+	  let (:method) { :post }
+	  let (:http_path) { contests_path }
+	end
+      end
+
+      describe "edit action" do
+	it_behaves_like "redirects to a login" do
+	  let (:contest) { FactoryGirl.create(:contest) }
+	  let (:path) { edit_contest_path(contest) }
+	  let (:method) { :patch }
+	  let (:http_path) { contest_path(contest) }
+	end
+      end
+
+      describe "delete action" do
+	it_behaves_like "redirects to a login", skip_browser: true do
+	  let (:contest) { FactoryGirl.create(:contest) }
+	  let (:method) { :delete }
+	  let (:http_path) { contest_path(contest) }
+	end
+      end
+    end
+
+    describe "for Players controller" do
+      describe "new action" do
+	it_behaves_like "redirects to a login" do
+	  let (:contest) { FactoryGirl.create(:contest) }
+	  let (:path) { new_contest_player_path(contest) }
+	  let (:method) { :post }
+	  let (:http_path) { contest_players_path(contest) }
+	end
+      end
+
+      describe "edit action" do
+	it_behaves_like "redirects to a login" do
+	  let (:player) { FactoryGirl.create(:player) }
+	  let (:path) { edit_player_path(player) }
+	  let (:method) { :patch }
+	  let (:http_path) { player_path(player) }
+	end
+      end
+
+      describe "delete action" do
+	it_behaves_like "redirects to a login", skip_browser: true do
+	  let (:player) { FactoryGirl.create(:player) }
+	  let (:method) { :delete }
+	  let (:http_path) { player_path(player) }
+	end
+      end
     end
   end
 
@@ -87,12 +159,6 @@ describe "AuthorizationPages" do
 	let (:method) { :post }
 	let (:http_path) { users_path }
       end
-    end
-
-    describe "for Referees controller" do
-      let(:creator) { FactoryGirl.create(:contest_creator) }
-
-      before { login creator, avoid_capybara: true }
     end
   end
 
@@ -122,7 +188,7 @@ describe "AuthorizationPages" do
       it_behaves_like "redirects to root" do
 	let (:referee) { FactoryGirl.create(:referee) }
 	let (:login_user) { user }
-	let (:path) { new_referee_path(referee) }
+	let (:path) { edit_referee_path(referee) }
 	let (:signature) { 'Edit Referee' }
 	let (:error_type) { :danger }
 	let (:method) { :patch }
@@ -135,6 +201,55 @@ describe "AuthorizationPages" do
 	let (:error_type) { :danger }
 	let (:method) { :delete }
 	let (:http_path) { referee_path(referee) }
+      end
+    end
+
+    describe "for Contests controller" do
+      it_behaves_like "redirects to root" do
+	let (:login_user) { user }
+	let (:path) { new_contest_path }
+	let (:signature) { 'Create Contest' }
+	let (:error_type) { :danger }
+	let (:method) { :post }
+	let (:http_path) { contests_path }
+      end
+
+      it_behaves_like "redirects to root" do
+	let (:contest) { FactoryGirl.create(:contest) }
+	let (:login_user) { user }
+	let (:path) { edit_contest_path(contest) }
+	let (:signature) { 'Edit Contest' }
+	let (:error_type) { :danger }
+	let (:method) { :patch }
+	let (:http_path) { contest_path(contest) }
+      end
+
+      it_behaves_like "redirects to root", skip_browser: true do
+	let (:contest) { FactoryGirl.create(:contest) }
+	let (:login_user) { user }
+	let (:error_type) { :danger }
+	let (:method) { :delete }
+	let (:http_path) { contest_path(contest) }
+      end
+    end
+
+    describe "for Players controller" do
+      it_behaves_like "redirects to root" do
+	let (:player) { FactoryGirl.create(:player) }
+	let (:login_user) { user }
+	let (:path) { edit_player_path(player) }
+	let (:signature) { 'Edit Player' }
+	let (:error_type) { :danger }
+	let (:method) { :patch }
+	let (:http_path) { player_path(player) }
+      end
+
+      it_behaves_like "redirects to root", skip_browser: true do
+	let (:player) { FactoryGirl.create(:player) }
+	let (:login_user) { user }
+	let (:error_type) { :danger }
+	let (:method) { :delete }
+	let (:http_path) { player_path(player) }
       end
     end
   end

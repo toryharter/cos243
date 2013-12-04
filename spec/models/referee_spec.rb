@@ -12,6 +12,8 @@ describe Referee do
   it { should respond_to(:matches) }
   it { should respond_to(:user) }
 
+  it { should respond_to(:referee) }
+
   describe "validations" do
     it { should be_valid }
   end
@@ -26,6 +28,12 @@ describe Referee do
     it { should_not be_valid }
   end
 
+  describe "file_location points to non-existant file" do
+    before { referee.file_location = '/path/to/non/existant/file' }
+
+    it { should_not be_valid }
+  end
+
   describe "empty name" do
     before { referee.name = '' }
     it { should_not be_valid }
@@ -33,6 +41,14 @@ describe Referee do
 
   describe "blank name" do
     before { referee.name = ' ' }
+    it { should_not be_valid }
+  end
+
+  describe "duplicate name" do
+    let (:other_referee) { FactoryGirl.create(:referee) }
+
+    before { referee.name = other_referee.name }
+
     it { should_not be_valid }
   end
 
@@ -160,6 +176,11 @@ describe Referee do
 
   describe "too large players per game" do
     before { referee.players_per_game = 11 }
+    it { should_not be_valid }
+  end
+
+  describe "fractional players per game" do
+    before { referee.players_per_game = 2.5 }
     it { should_not be_valid }
   end
 end
