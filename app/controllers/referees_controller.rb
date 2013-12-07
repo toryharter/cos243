@@ -10,7 +10,7 @@ class RefereesController < ApplicationController
   def create
     @referee = current_user.referees.build(acceptable_params)
     if @referee.save then
-      flash[:success] = "Referee #{@referee.name} has been created!"
+      flash[:success] = "Referee created"
       redirect_to @referee     
     else
       render 'new'

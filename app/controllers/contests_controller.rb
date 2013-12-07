@@ -10,7 +10,7 @@ class ContestsController < ApplicationController
   def create
     @contest = current_user.contests.build(acceptable_params)
     if @contest.save then
-      flash[:success] = "Contest #{@contest.name} has been created!"
+      flash[:success] = "Contest #{@contest.name} created!"
       redirect_to @contest     
     else
       render 'new'
@@ -27,7 +27,7 @@ class ContestsController < ApplicationController
   
   def update
     if @contest.update_attributes(acceptable_params)
-      flash[:success] = "Referee #{@contest.name} has been updated successfully!"
+      flash[:success] = "Contest #{@contest.name} has been updated successfully!"
       redirect_to @contest
     else
       render 'edit'
@@ -41,7 +41,7 @@ class ContestsController < ApplicationController
     @contest = Contest.find(params[:id])
     if current_user?(@contest.user)
       @contest.destroy
-      flash[:success] = "Referee deleted."
+      flash[:success] = "Contest deleted."
       redirect_to @contest
     else
       flash[:danger] = "Unable to delete contest."

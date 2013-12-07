@@ -12,7 +12,7 @@ class PlayersController < ApplicationController
     @player = contest.players.build(acceptable_params)
     @player.user = current_user
     if @player.save then
-      flash[:success] = "Referee #{@player.name} has been created!"
+      flash[:success] = "Player created"
       redirect_to @player
     else
       render 'new'

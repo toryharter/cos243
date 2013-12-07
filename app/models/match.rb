@@ -20,7 +20,7 @@ class Match < ActiveRecord::Base
   end
   
   def checkfuturedate
-    if self.status != "Finished"
+    if self.status != "Completed"
       return nil
     else
       return true
@@ -28,9 +28,9 @@ class Match < ActiveRecord::Base
   end
   
   def checktime
-    if self.status == "Finished"
+    if self.status == "Completed"
       return nil
-    elsif self.status == "Active"
+    elsif self.status == "Started"
       return nil
     else
       return true

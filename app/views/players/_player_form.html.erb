@@ -14,11 +14,11 @@
   <%= f.text_field :name, class: 'form-control'%>
 </div>
 <div class="form-group">
-  <%= f.label :downloadable, "Allow player to be downloaded" %>
+  <%= f.label :downloadable, "Allow others to download this player" %>
   <%= f.check_box :downloadable, class: 'form-control' %>
 </div>
 <div class="form-group">
-  <%= f.label :playable, "Allow player to play against other players" %>
+  <%= f.label :playable, "Allow others to compete against this player" %>
   <%= f.check_box :playable, class: 'form-control'%>
 </div>
 <div class="form-group">
@@ -26,7 +26,7 @@
   <%= f.text_field :description, class: 'form-control'%>
 </div>
 <div class="form-group">
-  <%= f.label :upload, 'File to be uploaded' %>
+  <%= f.label :upload, 'Upload file' %>
   <%= f.file_field :upload, class: 'form-control'%>
 </div>
 <div class="form-group">
