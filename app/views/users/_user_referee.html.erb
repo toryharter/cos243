@@ -1,0 +1,6 @@
+<li> <%= link_to referee.name,referee%> 
+     | <%= link_to "edit", edit_referee_path(referee) %>
+     <% if logged_in? %>
+       | <%= link_to "delete", referee_path(referee), method: :delete, data: {confirm: "Delete #{ referee.name }?"} %>
+     <% end %>
+</li>

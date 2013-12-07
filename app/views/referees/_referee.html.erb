@@ -1,4 +1,8 @@
-<li> <%= link_to referee.name,referee%> 
-     <%= link_to "edit", edit_referee_path(referee) %>
-     <%= link_to "delete", referee_path(referee), method: :delete, data: {confirm: "Are you sure you want to delete #{ referee.name }?"} %>
-</li>
+<p>Username: <%= referee.user.username %> </p>
+<ul>
+  <li><%= link_to referee.name, referee_path(referee) %> </li>
+  <li><%= link_to 'Rules', referee.rules_url %> </li>
+  <li> Players per game: <%= referee.players_per_game %> </li>
+  <li> <%= link_to "delete", referee, method: :delete, data: { confirm: "Delete " + referee.name + "?" } %> |
+    <%= link_to 'edit', edit_referee_path(referee.id) %></li>
+</ul>

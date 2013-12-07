@@ -1,7 +1,7 @@
 class ContestsController < ApplicationController
-  before_action :ensure_user_logged_in, only: [:new, :create, :edit, :update]
-  before_action :ensure_contest_creator, only: [:new, :create, :edit, :update]
-  before_action :ensure_correct_user, only: [:edit, :update]
+  before_action :ensure_user_logged_in, only: [:new, :create, :edit, :update, :destroy]
+  before_action :ensure_contest_creator, only: [:new, :create, :edit, :update, :destroy]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
   
   def new
     @contest = current_user.contests.build
@@ -10,7 +10,7 @@ class ContestsController < ApplicationController
   def create
     @contest = current_user.contests.build(acceptable_params)
     if @contest.save then
-      flash[:success] = "Contest #{@contest.name} created!"
+      flash[:success] = "Contest #{@contest.name} has been created!"
       redirect_to @contest     
     else
       render 'new'
@@ -27,7 +27,7 @@ class ContestsController < ApplicationController
   
   def update
     if @contest.update_attributes(acceptable_params)
-      flash[:success] = "Contest #{@contest.name} updated successfully!"
+      flash[:success] = "Referee #{@contest.name} has been updated successfully!"
       redirect_to @contest
     else
       render 'edit'
@@ -39,12 +39,12 @@ class ContestsController < ApplicationController
   
   def destroy
     @contest = Contest.find(params[:id])
-    if current_user?(@contest.user) #|| current_user.admin?
+    if current_user?(@contest.user)
       @contest.destroy
-      flash[:success] = "Contest destroyed."
-      redirect_to referees_path
+      flash[:success] = "Referee deleted."
+      redirect_to @contest
     else
-      flash[:danger] = "Can't delete contest."
+      flash[:danger] = "Unable to delete contest."
       redirect_to root_path
     end 
   end
@@ -54,8 +54,8 @@ class ContestsController < ApplicationController
       params.require(:contest).permit(:referee_id, :name, :contest_type, :description, :start, :deadline)
     end
     
-     def ensure_correct_user
-       @contest = Referee.find(params[:id])
+    def ensure_correct_user
+       @contest = Contest.find(params[:id])
        redirect_to root_path, flash: { :danger => "Must be Logged in as correct user!" } unless current_user?(@contest.user)
     end
        

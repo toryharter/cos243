@@ -1,0 +1,14 @@
+<h1>Match</h1>
+<ul>
+  <li>Status: <%= @match.status %> </li>
+  <li>Earliest Start: <%= distance_of_time_in_words_to_now(@match.earliest_start) %> </li>
+  <li>Completion: <%= distance_of_time_in_words_to_now(@match.completion) %> </li>
+  <li>Manager Name: <%= @match.manager.name %> </li>
+  <li>Referee Name: <%= @match.manager.referee.name %> </li>
+  <li>Players Per Game: <%= @match.manager.referee.players_per_game %> </li>
+</ul>
+<ol>
+  <% @match.player_matches.order(score: :desc).each do |f| %>
+  <li><%= link_to f.player.name, player_path(f.player) %> - <%= f.score %></li>
+  <% end %>
+</ol>

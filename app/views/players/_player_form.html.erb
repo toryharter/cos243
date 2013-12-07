@@ -7,24 +7,29 @@
       <li class="text-danger"> <%= message %> </li>
       <% end %>
     </ul>
-  <% end %>
+<% end %>
 
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: 'form-control'%>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :description %>
-    <%= f.text_field :description, class: 'form-control'%>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :upload, 'Upload file' %>
-    <%= f.file_field :upload, class: 'form-control'%>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :contest_id, "Contest" %>
-    <%= f.collection_select(:contest_id, Contest.all, :id, :name, class: 'form-control') %>
-  </div>
+<div class="form-group">
+  <%= f.label :name, "Name" %>
+  <%= f.text_field :name, class: 'form-control'%>
+</div>
+<div class="form-group">
+  <%= f.label :downloadable, "Allow player to be downloaded" %>
+  <%= f.check_box :downloadable, class: 'form-control' %>
+</div>
+<div class="form-group">
+  <%= f.label :playable, "Allow player to play against other players" %>
+  <%= f.check_box :playable, class: 'form-control'%>
+</div>
+<div class="form-group">
+  <%= f.label :description, "Description" %>
+  <%= f.text_field :description, class: 'form-control'%>
+</div>
+<div class="form-group">
+  <%= f.label :upload, 'File to be uploaded' %>
+  <%= f.file_field :upload, class: 'form-control'%>
+</div>
+<div class="form-group">
+  <%= f.label :contest_id, "Contest" %>
+  <%= f.collection_select(:contest_id, Contest.all, :id, :name, class: 'form-control') %>
+</div>

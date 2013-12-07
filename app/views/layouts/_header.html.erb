@@ -1,0 +1,32 @@
+<div class="container">
+    <nav class="navbar navbar-default" role="navigation">  
+      <div class="navbar-header">
+        <ul class="nav navbar-nav">
+          <li>
+              <%= link_to "Game Contest Server", root_path %></li>
+          <li <%= if current_page?(root_path) then 'class=active' end %>>
+              <%= link_to "Home", root_path %></li>
+          <li <%= if current_page?(users_path) then 'class=active' end %>>
+                <%= link_to "Users", users_path %></li>
+          <li <%= if current_page?(contests_path) then 'class=active' end %>>
+                <%= link_to "Contests", contests_path %></li>
+          <% if logged_in? %>
+            <li <%= if current_page?(user_path(current_user)) then 'class=active' end %>>
+                <%= link_to "Profile", user_path(current_user) %></li>
+            <li <%= if current_page?(edit_user_path(current_user)) then 'class=active' end %>>
+                <%= link_to "Settings", edit_user_path(current_user) %></li>
+            <div class="navbar-header pull-right">
+              <ul class="nav navbar-nav" >
+                <li><%= link_to "Log Out", logout_path,  method: :delete %></li>
+              </ul>
+            </div>
+          <% else %>
+            <li <%= if current_page?(signup_path) then 'class=active' end %>>
+              <%= link_to "Sign Up", signup_path %></li>
+            <li <%= if current_page?(login_path) then 'class=active' end %>>
+              <%= link_to "Log In", login_path %></li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+</div>

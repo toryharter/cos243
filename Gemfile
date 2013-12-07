@@ -6,6 +6,8 @@ gem 'rails', '4.0.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
+gem 'validates_timeliness', github: 'softace/validates_timeliness', branch:  'support_for_rails4'
+
 gem 'bcrypt-ruby', '~>3.0.0'
 
 group :test do
@@ -16,6 +18,8 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
+  gem 'guard'
+  gem 'guard-rspec', require: false
 end
 
 gem 'bcrypt-ruby', '~> 3.0.0'
